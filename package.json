@@ -1,0 +1,24 @@
+{
+  "name": "all",
+  "version": "1.0.0",
+  "description": "Node features",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "node-util"
+  ],
+  "author": "NareshPendem",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "morgan": "^1.9.1",
+    "npm": "^6.4.1",
+    "path": "^0.12.7",
+    "uuid": "^3.3.2"
+  }
+}
