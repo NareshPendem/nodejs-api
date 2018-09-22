@@ -1,10 +1,12 @@
 {
-  "name": "all",
+  "name": "node-crypto-api-utility",
   "version": "1.0.0",
-  "description": "Node features",
+  "description": "Project which pings Binance API and records the historical info to log file",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node app.js",
+    "deploy" : "gcloud app deploy"
   },
   "keywords": [
     "node",
