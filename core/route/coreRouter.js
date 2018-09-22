@@ -5,7 +5,7 @@ var path = require('path');
 var coreController = require('../controller/coreController');
 
 
-router.post('/one',coreController.api_one);
+router.get('/one',coreController.api_one);
 
 router.get('/two',coreController.api_two);
 
@@ -14,5 +14,9 @@ router.get('/home', (req, res) => {
   console.log("appDIR in ROuter"+appDir);
   res.sendFile(appDir+"/index.html");
 });
+
+router.get('/start/152179',coreController.api_start);
+router.get('/stop/152179',coreController.api_stop);
+
 
 module.exports = router;
