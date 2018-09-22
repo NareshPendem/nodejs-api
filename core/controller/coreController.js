@@ -49,18 +49,15 @@ exports.api_one = function(req, res) {
 
     var uniqueID = uuid.v4();
 
-      axios.get('https://jsonplaceholder.typicode.com/todos/1')
+      axios.get('https://api.binance.com/api/v1/trades?symbol=BTCUSDT&limit=20')
     .then(response => {
-      console.log(response.data.userId);
-      console.log(response.data.title);
+      console.log(response.data[0].price);
+      console.log(response.data[0].qty);
       res.json(response.data);
     })
     .catch(error => {
       console.log(error);
     });
-
-    console.log("UUID : "+uniqueID);
-
     //  var jsonString = JSON.stringify(req.body);
 
 };
@@ -69,12 +66,17 @@ exports.api_one = function(req, res) {
 exports.api_two = function(req, res) {
   var respJSON = {};
   var appDir = path.dirname(require.main.filename);
-  console.log("Inside GET request");
-  //var uID = req.params.id;
-  var resp = "api_two";
-  const respObj = {
-      key: resp
-  }
-  res.json(respObj);
+
+  var uniqueID = uuid.v4();
+
+    axios.get('https://api.binance.com/api/v1/klines?symbol=BTCUSDT&limit=50&interval=15m')
+  .then(response => {
+    console.log(response.data[0][2]);
+    console.log(response.data[0][3]);
+    res.json(response.data);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
 };
