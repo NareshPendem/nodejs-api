@@ -7,7 +7,17 @@ var winston = require('../../config/winston');
 var cron = require('node-cron');
 
 var task = cron.schedule('* * * * * *', () =>  {
-  console.log('task running');
+
+  axios.get('https://api.binance.com/api/v1/trades?symbol=BTCUSDT&limit=2')
+  .then(response => {
+
+  const respObj = {
+    btc : response.data[0].price,
+    qty : response.data[0].qty
+  }
+  winston.info(respObj);
+  })
+
 }, {
   scheduled: false
 });
