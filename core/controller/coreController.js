@@ -2,7 +2,7 @@
 const path = require('path');
 const uuid = require('uuid');
 const axios = require('axios');
-var cron = require('node-cron');
+var winston = require('../../config/winston');
 
 var cron = require('node-cron');
 
@@ -46,14 +46,20 @@ exports.api_stop = function(req, res) {
 
 exports.api_one = function(req, res) {
 
-
     var uniqueID = uuid.v4();
 
-      axios.get('https://api.binance.com/api/v1/trades?symbol=BTCUSDT&limit=20')
+      axios.get('https://api.binance.com/api/v1/trades?symbol=BTCUSDT&limit=2')
     .then(response => {
+
+      const respObj = {
+        btc : response.data[0].price,
+        qty : response.data[0].qty
+      }
+
       console.log(response.data[0].price);
       console.log(response.data[0].qty);
       res.json(response.data);
+      winston.info(respObj);
     })
     .catch(error => {
       console.log(error);

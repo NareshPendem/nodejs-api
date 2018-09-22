@@ -1,6 +1,8 @@
 var createError = require('http-errors');
 var path = require('path');
-var logger = require('morgan');
+var winston = require('./config/winston');
+var morgan = require('morgan');
+
 const ejs = require('ejs');
 var routes = require('./core/route/coreRouter');
 
@@ -17,7 +19,8 @@ app.set('view engine', 'html');
 app.engine('html', ejs.renderFile);
 ejs.delimiter = '?';
 
-app.use(logger('dev'));
+app.use(morgan('combined', { stream: winston.stream }));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
