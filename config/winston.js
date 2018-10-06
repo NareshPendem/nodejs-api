@@ -2,9 +2,10 @@ var appRoot = require('app-root-path');
 var winston = require('winston');
 
 // define the custom settings for each transport (file, console)
+// intentionally made as Warn and error to avoid anyother logs which are not needed.
 var options = {
   file: {
-    level: 'info',
+    level: 'warn',
     filename: `${appRoot}/logs/app.log`,
     handleExceptions: true,
     json: true,
@@ -13,7 +14,7 @@ var options = {
     colorize: false,
   },
   console: {
-    level: 'debug',
+    level: 'error',
     handleExceptions: true,
     json: false,
     colorize: true,

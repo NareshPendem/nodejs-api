@@ -3,6 +3,7 @@ const path = require('path');
 const uuid = require('uuid');
 const axios = require('axios');
 var winston = require('../../config/winston');
+const nodeEval = require('node-eval');
 
 var cron = require('node-cron');
 
@@ -22,9 +23,31 @@ var task = cron.schedule('* * * * * *', () =>  {
   scheduled: false
 });
 
+var task_allTokens = cron.schedule('*/15 * * * * *', () =>  {
+
+  axios.get('https://api.binance.com/api/v3/ticker/price')
+  .then(response => {
+
+    var size = response.data.length;
+    console.log("total size-->"+size);
+     var json = "{ ";
+    for (var i=0; i<size; i++) {
+      (i + 1) == size ? json += "\"" + response.data[i].symbol + "\" : \"" + response.data[i].price + "\"" : json += "\"" + response.data[i].symbol + "\" : \"" + response.data[i].price + "\",";
+    //  response.data[i].symbol: response.data[i].price
+  }
+  json += " }";
+  const obj = nodeEval(json, 'my.json');
+
+  winston.warn(obj);
+  })
+
+}, {
+  scheduled: false
+});
+
 exports.api_start = function(req, res) {
   try{
-  task.start();
+  task_allTokens.start();
   const respObj = {
     info : "task got started"
   }
@@ -39,7 +62,7 @@ exports.api_start = function(req, res) {
 
 exports.api_stop = function(req, res) {
     try{
-    task.stop();
+    task_allTokens.stop();
     const respObj = {
       info : "task got stopped"
     }
