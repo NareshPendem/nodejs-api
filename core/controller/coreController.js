@@ -32,7 +32,12 @@ var task_allTokens = cron.schedule('*/15 * * * * *', () =>  {
     console.log("total size-->"+size);
      var json = "{ ";
     for (var i=0; i<size; i++) {
+      if((i+1) != size && (response.data[i].symbol.indexOf("BTC") != -1 ||
+    response.data[i].symbol.indexOf("USDT") != -1) ){
       (i + 1) == size ? json += "\"" + response.data[i].symbol + "\" : \"" + response.data[i].price + "\"" : json += "\"" + response.data[i].symbol + "\" : \"" + response.data[i].price + "\",";
+      } else if ((i+1 == size)){
+      (i + 1) == size ? json += "\"" + response.data[i].symbol + "\" : \"" + response.data[i].price + "\"" : json += "\"" + response.data[i].symbol + "\" : \"" + response.data[i].price + "\",";
+    }
     //  response.data[i].symbol: response.data[i].price
   }
   json += " }";
