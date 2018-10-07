@@ -9,7 +9,7 @@ var options = {
     filename: `${appRoot}/logs/app.log`,
     handleExceptions: true,
     json: true,
-    maxsize: 1073741824, // 5MB
+    maxsize: 1073741824, // 1GB
     maxFiles: 10,
     colorize: false,
     timestamp: true,
