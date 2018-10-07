@@ -2,8 +2,9 @@
 const path = require('path');
 const uuid = require('uuid');
 const axios = require('axios');
-var winston = require('../../config/winston');
+const winston = require('../../config/winston');
 const nodeEval = require('node-eval');
+const timestamp = require('time-stamp');
 
 var cron = require('node-cron');
 
@@ -29,8 +30,17 @@ var task_allTokens = cron.schedule('*/15 * * * * *', () =>  {
   .then(response => {
 
     var size = response.data.length;
-    console.log("total size-->"+size);
+
+      timestamp.utc('ss')
+
+  var data = timestamp.utc('YYYY')+"-"+timestamp.utc('MM')+"-"+timestamp.utc('DD')+"-"+
+  timestamp.utc('HH')+"-"+timestamp.utc('mm')+"-"+timestamp.utc('ss');
+
+    var key = "timestamp";
+
+    console.log("total size-->"+size+"--date : "+data);
      var json = "{ ";
+     json += "\"" + key + "\" : \"" + data + "\",";
     for (var i=0; i<size; i++) {
       if((i+1) != size && (response.data[i].symbol.indexOf("BTC") != -1 ||
     response.data[i].symbol.indexOf("USDT") != -1) ){
@@ -44,7 +54,9 @@ var task_allTokens = cron.schedule('*/15 * * * * *', () =>  {
   const obj = nodeEval(json, 'my.json');
 
   winston.warn(obj);
-  })
+  }).catch(error => {
+    console.log(error);
+  });
 
 }, {
   scheduled: false
