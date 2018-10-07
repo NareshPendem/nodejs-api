@@ -12,12 +12,14 @@ var options = {
     maxsize: 5242880, // 5MB
     maxFiles: 10,
     colorize: false,
+    timestamp: true,
   },
   console: {
     level: 'error',
     handleExceptions: true,
     json: false,
     colorize: true,
+    timestamp: true,
   },
 };
 
