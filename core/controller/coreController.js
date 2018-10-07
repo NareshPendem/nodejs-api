@@ -24,7 +24,7 @@ var task = cron.schedule('* * * * * *', () =>  {
   scheduled: false
 });
 
-var task_allTokens = cron.schedule('*/15 * * * * *', () =>  {
+var task_allTokens = cron.schedule('*/60 * * * * *', () =>  {
 
   axios.get('https://api.binance.com/api/v3/ticker/price')
   .then(response => {
