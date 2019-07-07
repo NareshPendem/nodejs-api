@@ -26,12 +26,19 @@ const binanceParser = response => {
 }
 
 const deribitParser = response =>{
+
+    const responseSymbol = getDeribitTicker(response.data.result.instrument_name);
+
     const respObj = {
-        symbol: "ETH-USD",
+        symbol: responseSymbol,
         price: response.data.result.index_price,
         qty: 1,
         ts : response.data.result.timestamp
 
     }
     return respObj;
+}
+
+const getDeribitTicker = instrument_name => {
+    return instrument_name + "-USD";
 }

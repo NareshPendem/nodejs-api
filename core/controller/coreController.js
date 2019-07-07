@@ -14,10 +14,19 @@ var task_scheduled = cron.schedule('*/60 * * * * *', () => {
   axios.get(appUtils.getApiUrlToConsume())
     .then(response => {
       const respObj = responseParser.apiResponseToFormattedLogObject(response);
-      winston.warn(appUtils.buildJSONObjectForLogging(respObj));
-    }).then(interimJson => {
-      // TODO : CHain Service Calls.
-
+      var jsonLoggingObject = appUtils.buildJSONObjectForLogging(respObj, null)
+      return jsonLoggingObject;
+    }).then(jsonLoggingObject => {
+      if (appUtils.getApiUrlToConsume_chained() !== ""){
+        // Applicable only for Deribit.
+      axios.get(appUtils.getApiUrlToConsume_chained())
+        .then(response => {
+          const respObj = responseParser.apiResponseToFormattedLogObject(response);
+          winston.warn(appUtils.buildJSONObjectForLogging(respObj, jsonLoggingObject));
+        }).catch(error => {
+          console.log(error);
+        });
+      }
     })
     .catch(error => {
       console.log(error);

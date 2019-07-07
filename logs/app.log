@@ -1,7 +1,2 @@
-{"message":{"ETH-USD":"288.08","timestamp":"https://test.deribit.com/api/v2/public/ticker?instrument_name=ETH-PERPETUAL"},"level":"warn"}
-{"message":{"ETH-USD":"288.05","timestamp":"https://test.deribit.com/api/v2/public/ticker?instrument_name=ETH-PERPETUAL"},"level":"warn"}
-{"message":{"ETH-USD":"288.13","timestamp":"https://test.deribit.com/api/v2/public/ticker?instrument_name=ETH-PERPETUAL"},"level":"warn"}
-{"message":{"ETH-USD":"288.05","timestamp":"https://test.deribit.com/api/v2/public/ticker?instrument_name=ETH-PERPETUAL"},"level":"warn"}
-{"message":{"ETH-USD":"287.99","timestamp":"https://test.deribit.com/api/v2/public/ticker?instrument_name=ETH-PERPETUAL"},"level":"warn"}
-{"message":{"ETH-USD":"288.05","timestamp":"2019-07-07-01-22-00"},"level":"warn"}
-{"message":{"ETH-USD":"287.69","timestamp":"2019-07-07-01-23-00"},"level":"warn"}
+{"message":{"timestamp":"2019-07-07-07-30-00","ETH-PERPETUAL-USD":288.31,"BTC-PERPETUAL-USD":11215.28},"level":"warn"}
+{"message":{"timestamp":"2019-07-07-07-31-00","ETH-PERPETUAL-USD":288.29,"BTC-PERPETUAL-USD":11211.04},"level":"warn"}
