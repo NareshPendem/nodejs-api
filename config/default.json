@@ -1,0 +1,13 @@
+{
+    "App":{
+        "currentExchange" : "deribit",
+        "availableExchanges":["deribit","binance"],
+        "binance" :{
+            "trade_url_btc" : "https://api.binance.com/api/v1/trades?symbol=BTCUSDT&limit=2"
+        },
+        "deribit":{
+            "ticker_url_btc_perpetual": "https://test.deribit.com/api/v2/public/ticker?instrument_name=BTC-PERPETUAL",
+            "ticker_url_eth_perpetual": "https://test.deribit.com/api/v2/public/ticker?instrument_name=ETH-PERPETUAL"
+        }
+    }
+}
