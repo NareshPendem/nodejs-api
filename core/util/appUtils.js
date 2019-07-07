@@ -23,3 +23,17 @@ exports.getFormattedTimeStamp = () => {
     timestamp.utc('HH') + "-" + timestamp.utc('mm') + "-" + timestamp.utc('ss');
     return data;
 }
+
+exports.buildJSONObjectForLogging = (respObj) => {
+
+
+  var formattedTS = this.getFormattedTimeStamp();
+
+  const json = {
+    timestamp: formattedTS,
+    [respObj.symbol]: respObj.price
+  }
+
+  return json;
+
+}

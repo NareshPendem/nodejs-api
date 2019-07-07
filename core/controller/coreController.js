@@ -3,7 +3,6 @@ const path = require('path');
 const uuid = require('uuid');
 const axios = require('axios');
 const winston = require('../../config/winston');
-const nodeEval = require('node-eval');
 const responseParser = require('../parser/responseParser');
 const appUtils = require('../util/appUtils');
 
@@ -15,19 +14,12 @@ var task_scheduled = cron.schedule('*/60 * * * * *', () => {
   axios.get(appUtils.getApiUrlToConsume())
     .then(response => {
       const respObj = responseParser.apiResponseToFormattedLogObject(response);
-      var size = 1;// TODO : Dealing only with single ticker ETH/BTC.
+      winston.warn(appUtils.buildJSONObjectForLogging(respObj));
+    }).then(interimJson => {
+      // TODO : CHain Service Calls.
 
-      var data = appUtils.getFormattedTimeStamp();
-      var key = "timestamp";
-
-      console.log("total size-->" + size + "--date : " + data);
-      var json = "{ ";
-      json += "\"" + respObj.symbol + "\" : \"" + respObj.price + "\",";
-      json += "\"" + key + "\" : \"" + data + "\"";
-      json += " }";
-      const obj = nodeEval(json, 'my.json');
-      winston.warn(obj);
-    }).catch(error => {
+    })
+    .catch(error => {
       console.log(error);
     });
 
