@@ -1,18 +1,18 @@
 const config = require('config');
 const timestamp = require('time-stamp');
+const constants = require('../util/Constants')
 
 exports.currentActiveExchange = () => {
-  return config.get('App.currentExchange');
+  return config.get(constants.CONFIG_ENTRY_CURRENT_EXCHANGE);
 }
 
 exports.getApiUrlToConsume = () =>{
-  if(config.get('App.currentExchange') === "binance"){
+  if(config.get(constants.CONFIG_ENTRY_CURRENT_EXCHANGE) === "binance"){
    console.log("Returning as binance..");
-    console.log("API URL->", config.get('App.binance.trade_url_btc'))
-    return config.get('App.binance.trade_url_btc');
-  } else if (config.get('App.currentExchange') === "deribit") {
+    return config.get(constants.CONFIG_ENTRY_BINANCE_TRADE_BTC_URL);
+  } else if (config.get(constants.CONFIG_ENTRY_CURRENT_EXCHANGE) === "deribit") {
     console.log("Returning as deribit..");
-    return config.get('App.deribit.ticker_url_eth_perpetual');
+    return config.get(constants.CONFIG_ENTRY_DERIBIT_ETH_PERPETUAL_URL);
   }
   console.log("Unable find the active exchange..");
   return "";

@@ -8,60 +8,8 @@ const responseParser = require('../parser/responseParser');
 const appUtils = require('../util/appUtils');
 
 var cron = require('node-cron');
-
- // TODO : Clean Up Required.
-
-// var task = cron.schedule('* * * * * *', () =>  {
-
-//   axios.get(appUtils.getApiUrlToConsume())
-//   .then(response => {
-//     winston.info(responseParser.apiResponseToFormattedLogObject(response));
-//   })
-
-// }, {
-//   scheduled: false
-// });
-
-
-// var task_allTokens = cron.schedule('*/60 * * * * *', () =>  {
-
-//   axios.get('https://api.binance.com/api/v3/ticker/price')
-//   .then(response => {
-
-//     var size = response.data.length;
-
-//       timestamp.utc('ss')
-
-//   var data = timestamp.utc('YYYY')+"-"+timestamp.utc('MM')+"-"+timestamp.utc('DD')+"-"+
-//   timestamp.utc('HH')+"-"+timestamp.utc('mm')+"-"+timestamp.utc('ss');
-
-//     var key = "timestamp";
-
-//     console.log("total size-->"+size+"--date : "+data);
-//      var json = "{ ";
-//     // json += "\"" + key + "\" : \"" + data + "\",";
-//     for (var i=0; i<size; i++) {
-//       if((i+1) != size && (response.data[i].symbol.indexOf("BTC") != -1 ||
-//     response.data[i].symbol.indexOf("USDT") != -1) ){
-//       (i + 1) == size ? json += "\"" + response.data[i].symbol + "\" : \"" + response.data[i].price + "\"" : json += "\"" + response.data[i].symbol + "\" : \"" + response.data[i].price + "\",";
-//       } else if ((i+1 == size)){
-//         // Add of timestamp to end of the JSON.
-//       (i + 1) == size ? json += "\"" + key + "\" : \"" + data + "\"" : json += "\"" + response.data[i].symbol + "\" : \"" + response.data[i].price + "\",";
-//     }
-//   }
-//   json += " }";
-//   const obj = nodeEval(json, 'my.json');
-
-//   winston.warn(obj);
-//   }).catch(error => {
-//     console.log(error);
-//   });
-
-// }, {
-//   scheduled: false
-// });
-
-
+// var appDir = path.dirname(require.main.filename);
+// var uniqueID = uuid.v4();
 var task_scheduled = cron.schedule('*/60 * * * * *', () => {
 
   axios.get(appUtils.getApiUrlToConsume())
@@ -69,7 +17,7 @@ var task_scheduled = cron.schedule('*/60 * * * * *', () => {
       const respObj = responseParser.apiResponseToFormattedLogObject(response);
       var size = 1;// TODO : Dealing only with single ticker ETH/BTC.
 
-      var data = appUtils.getApiUrlToConsume();
+      var data = appUtils.getFormattedTimeStamp();
       var key = "timestamp";
 
       console.log("total size-->" + size + "--date : " + data);
@@ -87,6 +35,7 @@ var task_scheduled = cron.schedule('*/60 * * * * *', () => {
     scheduled: false
   });
 
+// Starts the job to consume Exchange API and log Token Price to file.
 exports.api_start = function(req, res) {
   try{
     task_scheduled.start();
@@ -102,6 +51,7 @@ exports.api_start = function(req, res) {
 }
 };
 
+// Stops the running job logging Exchange API and log Token Price to file.
 exports.api_stop = function(req, res) {
     try{
       task_scheduled.stop();
@@ -115,42 +65,4 @@ exports.api_stop = function(req, res) {
     }
     res.json(respObj);
   }
-};
-
-
-
-exports.api_one = function(req, res) {
-
-    var uniqueID = uuid.v4();
-
-  axios.get(appUtils.getApiUrlToConsume())
-    .then(response => {
-
-      const respObj = responseParser.apiResponseToFormattedLogObject(response);
-
-      console.log("Formated Resp log ->",respObj);
-      //res.json(response.data);
-      winston.info(respObj);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
-
-
-exports.api_two = function(req, res) {
-  var respJSON = {};
-  var appDir = path.dirname(require.main.filename);
-  var uniqueID = uuid.v4();
-
-    axios.get('https://api.binance.com/api/v1/klines?symbol=BTCUSDT&limit=50&interval=15m')
-  .then(response => {
-    console.log(response.data[0][2]);
-    console.log(response.data[0][3]);
-    res.json(response.data);
-  })
-  .catch(error => {
-    console.log(error);
-  });
-
 };

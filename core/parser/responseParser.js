@@ -1,4 +1,3 @@
-const config = require('config');
 const appUtils = require('../util/appUtils')
 
 exports.apiResponseToFormattedLogObject = (apiResponse) =>{
@@ -17,8 +16,6 @@ exports.apiResponseToFormattedLogObject = (apiResponse) =>{
 
 
 const binanceParser = response => {
-
-    console.log("response from binance ->", response);
     const respObj = {
         symbol : "BTC-USD",
         price: response.data[0].price,
@@ -29,7 +26,6 @@ const binanceParser = response => {
 }
 
 const deribitParser = response =>{
-    console.log("response from deribit ->", response);
     const respObj = {
         symbol: "ETH-USD",
         price: response.data.result.index_price,
