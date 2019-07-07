@@ -18,6 +18,7 @@
     "app-root-path": "^2.1.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "config": "^3.1.0",
     "ejs": "^2.6.1",
     "eval": "^0.1.2",
     "express": "^4.16.3",
