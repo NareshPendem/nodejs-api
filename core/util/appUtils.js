@@ -42,13 +42,13 @@ exports.buildJSONObjectForLogging = (respObj,jsonObjectForLogging) => {
     && jsonObjectForLogging !== ""
      && jsonObjectForLogging.hasOwnProperty('timestamp')){
     var key = respObj.symbol;
-    jsonObjectForLogging[key] = respObj.price;
+    jsonObjectForLogging[key] = ""+respObj.price;
     return jsonObjectForLogging;
   }
 
   const json = {
     timestamp: formattedTS,
-    [respObj.symbol]: respObj.price
+    [respObj.symbol]: ""+respObj.price
   }
 
   return json;
