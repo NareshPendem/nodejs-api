@@ -9,7 +9,7 @@ const appUtils = require('../util/appUtils');
 var cron = require('node-cron');
 // var appDir = path.dirname(require.main.filename);
 // var uniqueID = uuid.v4();
-var task_scheduled = cron.schedule('*/45 * * * * *', () => {
+var task_scheduled = cron.schedule('*/5 * * * * *', () => {
 
   axios.get(appUtils.getApiUrlToConsume())
     .then(response => {
@@ -26,6 +26,8 @@ var task_scheduled = cron.schedule('*/45 * * * * *', () => {
         }).catch(error => {
           console.log(error);
         });
+      }else{
+        winston.warn(jsonLoggingObject);
       }
     })
     .catch(error => {

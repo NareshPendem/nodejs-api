@@ -1,6 +1,6 @@
 {
     "App":{
-        "currentExchange" : "deribit",
+        "currentExchange" : "binance",
         "availableExchanges":["deribit","binance"],
         "binance" :{
             "trade_url_btc" : "https://api.binance.com/api/v1/trades?symbol=BTCUSDT&limit=2"
